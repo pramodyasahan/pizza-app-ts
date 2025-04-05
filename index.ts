@@ -1,4 +1,5 @@
 type Pizza = {
+    id: number;
     name: string
     price: number
 }
@@ -6,14 +7,14 @@ type Pizza = {
 type Order = {
     id: number
     pizza: Pizza
-    status: string
+    status: "pending" | "complete"
 }
 
 const menu = [
-    {name: "Margherita", price: 8},
-    {name: "Pepperoni", price: 10},
-    {name: "Hawaiian", price: 10},
-    {name: "Veggie", price: 9},
+    {id: 1, name: "Margherita", price: 8},
+    {id: 2, name: "Pepperoni", price: 10},
+    {id: 3, name: "Hawaiian", price: 10},
+    {id: 4, name: "Veggie", price: 9},
 ]
 
 let cashInRegister: number = 100
@@ -31,7 +32,7 @@ function placeOrder(pizzaName: string) {
         return
     }
     cashInRegister += selectedPizza.price
-    const newOrder = {id: nextOrderId++, pizza: selectedPizza, status: "pending"};
+    const newOrder: Order = {id: nextOrderId++, pizza: selectedPizza, status: "pending"};
     orderQueue.push(newOrder)
     return newOrder
 }
@@ -46,8 +47,8 @@ function completeOrder(orderId: number) {
     return order
 }
 
-addNewPizza({name: "Chicken Bacon", price: 12})
-addNewPizza({name: "BBQ Chicken", price: 11})
+addNewPizza({id: 5, name: "Chicken Bacon", price: 12})
+addNewPizza({id: 6, name: "BBQ Chicken", price: 11})
 
 placeOrder("Chicken Bacon")
 completeOrder(1)
